@@ -1,0 +1,11 @@
+server:
+  port: 8082
+
+spring:
+  jpa:
+    generate-ddl: False
+
+
+  h2:
+    console:
+      enabled: true

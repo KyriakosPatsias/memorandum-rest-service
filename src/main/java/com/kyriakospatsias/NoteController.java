@@ -1,0 +1,41 @@
+package com.kyriakospatsias;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+@RestController
+public class NoteController {
+    @Autowired
+    NoteRepository noteRepository;
+
+    @GetMapping(value = "/note")
+    public List<Note> getAllNotes() {
+        List<Note> notes = new ArrayList<>();
+        noteRepository.findAll().forEach(notes::add);
+        return notes;
+    }
+
+    @GetMapping(value = "/note/{id}")
+    public Optional<Note> getNoteById(@PathVariable long id) {
+        return noteRepository.findById(id);
+    }
+
+    @PostMapping(value = "/note")
+    public void addNote(@RequestBody Note note) {
+        noteRepository.save(note);
+    }
+
+    @PutMapping(value = "/note")
+    public Note updateNote(@RequestBody Note note) {
+        return noteRepository.save(note);
+    }
+
+    @DeleteMapping(value = "/note/{id}")
+    public void deleteNote(@PathVariable long id) {
+        noteRepository.deleteById(id);
+    }
+}
