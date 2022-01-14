@@ -3,7 +3,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.3.4.RELEASE")
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.2.6.RELEASE")
     }
 }
 
@@ -30,6 +30,5 @@ dependencies {
     runtimeOnly 'com.h2database:h2'
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.10.3'
     compile group: 'javax.persistence', name: 'javax.persistence-api', version: '2.2'
-    compile 'org.modelmapper:modelmapper:2.3.8'
 
 }

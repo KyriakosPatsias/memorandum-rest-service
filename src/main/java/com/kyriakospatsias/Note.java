@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 
 @Entity
 public class Note {
@@ -14,10 +15,6 @@ public class Note {
     private long id;
     private String title;
     private String body;
-
-    public Note(){
-
-    }
 
     public Note(String title, String body) {
         this.title = title;
