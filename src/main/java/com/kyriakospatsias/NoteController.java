@@ -21,7 +21,7 @@ public class NoteController {
     }
 
     @GetMapping(value = "/note/{id}")
-    public Optional<Note> getNoteById(@PathVariable long id) {
+    public Optional<Note> getNoteById(@PathVariable String id) {
         return noteRepository.findById(id);
     }
 
@@ -36,7 +36,7 @@ public class NoteController {
     }
 
     @DeleteMapping(value = "/note/{id}")
-    public void deleteNote(@PathVariable long id) {
+    public void deleteNote(@PathVariable String id) {
         noteRepository.deleteById(id);
     }
 }

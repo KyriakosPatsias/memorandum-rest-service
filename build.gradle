@@ -1,18 +1,8 @@
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.3.5.RELEASE")
-    }
-}
-
 plugins {
     id 'org.springframework.boot' version '2.3.5.RELEASE'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
 }
-
 
 apply plugin: 'java'
 apply plugin: 'idea'
@@ -20,7 +10,7 @@ apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
 group 'com.kyriakospatsias'
-version '1.0-SNAPSHOT'
+version '1.2-SNAPSHOT'
 
 sourceCompatibility = 11
 
@@ -28,17 +18,27 @@ repositories {
     mavenCentral()
 }
 
+dependencyManagement {
+    imports {
+        mavenBom 'software.amazon.awssdk:bom:2.17.122'
+    }
+}
+
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
-    implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
-    runtimeOnly 'com.h2database:h2'
+    implementation 'org.springframework.data:spring-data-releasetrain:Lovelace-SR16'
+    implementation 'com.github.derjust:spring-data-dynamodb:5.1.0'
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.10.3'
-    implementation group: 'javax.persistence', name: 'javax.persistence-api', version: '2.2'
-    implementation group: 'com.okta.spring', name: 'okta-spring-boot-starter', version: '1.4.0'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security'
     implementation 'org.springframework.security:spring-security-test'
+    implementation 'org.springframework.security:spring-security-oauth2-client:5.2.1.RELEASE'
+    implementation 'org.springframework.security:spring-security-oauth2-jose:5.2.1.RELEASE'
+    implementation 'org.springframework.security:spring-security-oauth2-resource-server:5.2.1.RELEASE'
+    implementation 'software.amazon.awssdk:dynamodb-enhanced'
+    implementation 'software.amazon.awssdk:dynamodb'
+    implementation 'software.amazon.awssdk:sns'
 }
 
 test {

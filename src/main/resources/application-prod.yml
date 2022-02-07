@@ -2,13 +2,15 @@ server:
   port: 8080
 
 spring:
+  jpa:
+    generate-ddl: false
+  hibernate:
+    ddl-auto: update
   security:
     oauth2:
       resourceserver:
         jwt:
           issuer-uri: https://cognito-idp.us-east-1.amazonaws.com/us-east-1_TKuvDF3uW
-  main:
-    allow-bean-definition-overriding: true
 
 amazon:
   dynamodb:

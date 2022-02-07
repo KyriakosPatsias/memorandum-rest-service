@@ -15,7 +15,9 @@ public class SecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
                 .cors()
                 .and()
                 .csrf().disable()
-                .authorizeRequests().anyRequest().authenticated()
+                .authorizeRequests()
+                .antMatchers("/","/info", "/health","/actuator/**").permitAll()
+                .anyRequest().authenticated()
                 .and()
                 .oauth2ResourceServer().jwt();
     }

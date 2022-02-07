@@ -1,7 +1,9 @@
 package com.kyriakospatsias;
 
+import org.socialsignin.spring.data.dynamodb.repository.EnableScan;
 import org.springframework.data.repository.CrudRepository;
 
-public interface NoteRepository extends CrudRepository<Note, Long> {
+@EnableScan
+public interface NoteRepository extends CrudRepository<Note, String> {
 
 }
