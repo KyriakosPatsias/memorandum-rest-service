@@ -14,5 +14,13 @@ amazon:
   dynamodb:
     endpoint: dynamodb.us-west-2.amazonaws.com
   aws:
-    accesskey: AKIA34N57244PMRUYUFD
-    secretkey: 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
+    accesskey: ${AWS_ACCESS_KEY}
+    secretkey: ${AWS_SECRET_KEY}
+
+
+# CLI option -Pargs=--logging.level.org.springframework=INFO,--logging.level.com.kyriakospatsias=DEBUG
+logging:
+  level:
+    root: INFO
+    com:
+      kyriakospatsias: DEBUG

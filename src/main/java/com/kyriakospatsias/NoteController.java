@@ -1,5 +1,7 @@
 package com.kyriakospatsias;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -10,11 +12,16 @@ import java.util.Optional;
 
 @RestController
 public class NoteController {
+
+    Logger logger = LoggerFactory.getLogger(NoteController.class);
+
+
     @Autowired
     NoteRepository noteRepository;
 
     @GetMapping(value = "/note")
     public List<Note> getAllNotes() {
+        logger.debug("Listing all notes");
         List<Note> notes = new ArrayList<>();
         noteRepository.findAll().forEach(notes::add);
         return notes;
