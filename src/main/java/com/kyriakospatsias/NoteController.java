@@ -3,7 +3,6 @@ package com.kyriakospatsias;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -14,7 +13,6 @@ import java.util.Optional;
 public class NoteController {
 
     Logger logger = LoggerFactory.getLogger(NoteController.class);
-
 
     @Autowired
     NoteRepository noteRepository;
@@ -30,6 +28,11 @@ public class NoteController {
     @GetMapping(value = "/note/{id}")
     public Optional<Note> getNoteById(@PathVariable String id) {
         return noteRepository.findById(id);
+    }
+
+    @GetMapping(value = "/note/body/{id}")
+    public String getNoteBodyById(@PathVariable String id) {
+        return noteRepository.findById(id).get().getBody();
     }
 
     @PostMapping(value = "/note")
