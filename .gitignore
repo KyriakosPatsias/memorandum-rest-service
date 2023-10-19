@@ -3,4 +3,4 @@
 build/
 **/application-prod.yml
 **/application-test.yml
-.DS_Store/
+.DS_Store
