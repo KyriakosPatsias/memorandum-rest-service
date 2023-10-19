@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -37,11 +38,14 @@ public class NoteController {
 
     @PostMapping(value = "/note")
     public Note addNote(@RequestBody Note note) {
+        note.setCreatedOn(LocalDateTime.now());
+        note.setUpdatedOn(LocalDateTime.now());
         return noteRepository.save(note);
     }
 
     @PutMapping(value = "/note")
     public Note updateNote(@RequestBody Note note) {
+        note.setUpdatedOn(LocalDateTime.now());
         return noteRepository.save(note);
     }
 
