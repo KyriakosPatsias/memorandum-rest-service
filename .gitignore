@@ -2,3 +2,5 @@
 .idea/
 build/
 **/application-prod.yml
+**/application-test.yml
+.DS_Store/
