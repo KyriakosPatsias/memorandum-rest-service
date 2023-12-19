@@ -2,14 +2,14 @@
 
 ![Java CI with Gradle](https://github.com/KyriakosPatsias/memorandum-rest-service/workflows/Java%20CI%20with%20Gradle/badge.svg)
 
-##To Do:
+## To Do:
 1. Add Observability
 
 
-##Releases:
+## Releases:
 
-###v1.2
+### v1.2
 Set AWS DynamoDB as data repo.
 
-###v1.1
+### v1.1
 Secure using AWS Cognito OAuth2.
