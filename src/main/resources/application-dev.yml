@@ -9,14 +9,16 @@ spring:
           issuer-uri: https://cognito-idp.us-east-1.amazonaws.com/us-east-1_TKuvDF3uW
   main:
     allow-bean-definition-overriding: true
-
-amazon:
-  dynamodb:
-    endpoint: dynamodb.us-west-2.amazonaws.com
-  aws:
-    accesskey: ${AWS_ACCESS_KEY}
-    secretkey: ${AWS_SECRET_KEY}
-
+  datasource:
+    url: jdbc:postgresql://localhost:5432/memorandum
+    username: postgres
+    password: mysecretpassword
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
 
 # CLI option -Pargs=--logging.level.org.springframework=INFO,--logging.level.com.kyriakospatsias=DEBUG
 logging:

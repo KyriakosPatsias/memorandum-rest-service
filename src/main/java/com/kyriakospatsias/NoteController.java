@@ -20,7 +20,12 @@ import java.util.Optional;
 public class NoteController {
 
     Logger logger = LoggerFactory.getLogger(NoteController.class);
-    NoteRepository noteRepository;
+
+    private final NoteRepository noteRepository;
+
+    public NoteController(NoteRepository noteRepository){
+        this.noteRepository=noteRepository;
+    }
 
     @GetMapping(value = "/note")
     public List<Note> getAllNotes() {
@@ -31,12 +36,12 @@ public class NoteController {
     }
 
     @GetMapping(value = "/note/{id}")
-    public Optional<Note> getNoteById(@PathVariable String id) {
+    public Optional<Note> getNoteById(@PathVariable long id) {
         return noteRepository.findById(id);
     }
 
     @GetMapping(value = "/note/body/{id}")
-    public String getNoteBodyById(@PathVariable String id) {
+    public String getNoteBodyById(@PathVariable long id) {
         return noteRepository.findById(id).get().getBody();
     }
 
@@ -54,7 +59,7 @@ public class NoteController {
     }
 
     @DeleteMapping(value = "/note/{id}")
-    public void deleteNote(@PathVariable String id) {
+    public void deleteNote(@PathVariable long id) {
         noteRepository.deleteById(id);
     }
 }
