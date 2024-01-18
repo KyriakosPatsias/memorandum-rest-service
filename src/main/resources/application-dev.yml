@@ -7,6 +7,7 @@ spring:
       resourceserver:
         jwt:
           issuer-uri: https://cognito-idp.us-east-1.amazonaws.com/us-east-1_TKuvDF3uW
+          jwk-set-uri: https://cognito-idp.us-east-1.amazonaws.com/us-east-1_TKuvDF3uW/.well-known/jwks.json
   main:
     allow-bean-definition-overriding: true
   datasource:
