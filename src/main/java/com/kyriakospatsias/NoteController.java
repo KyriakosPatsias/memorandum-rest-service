@@ -2,32 +2,35 @@ package com.kyriakospatsias;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
+@RequestMapping("/api/v1/notes")
 public class NoteController {
 
     Logger logger = LoggerFactory.getLogger(NoteController.class);
 
     private final NoteRepository noteRepository;
 
-    public NoteController(NoteRepository noteRepository){
-        this.noteRepository=noteRepository;
+    public NoteController(NoteRepository noteRepository) {
+        this.noteRepository = noteRepository;
     }
 
-    @GetMapping(value = "/note")
+    @GetMapping
     public List<Note> getAllNotes() {
         logger.debug("Listing all notes");
         List<Note> notes = new ArrayList<>();
@@ -35,31 +38,40 @@ public class NoteController {
         return notes;
     }
 
-    @GetMapping(value = "/note/{id}")
-    public Optional<Note> getNoteById(@PathVariable long id) {
-        return noteRepository.findById(id);
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<Note> getNoteById(@PathVariable long id) {
+        return noteRepository.findById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
-    @GetMapping(value = "/note/body/{id}")
-    public String getNoteBodyById(@PathVariable long id) {
-        return noteRepository.findById(id).get().getBody();
-    }
-
-    @PostMapping(value = "/note")
-    public Note addNote(@RequestBody Note note) {
+    @PostMapping
+    public ResponseEntity<Note> addNote(@RequestBody Note note) {
         note.setCreatedOn(LocalDateTime.now());
         note.setUpdatedOn(LocalDateTime.now());
-        return noteRepository.save(note);
+        Note savedNote = noteRepository.save(note);
+        return new ResponseEntity<>(savedNote, HttpStatus.CREATED);
     }
 
-    @PutMapping(value = "/note")
-    public Note updateNote(@RequestBody Note note) {
-        note.setUpdatedOn(LocalDateTime.now());
-        return noteRepository.save(note);
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<Note> updateNote(@PathVariable long id, @RequestBody Note note) {
+        return noteRepository.findById(id)
+                .map(existingNote -> {
+                    existingNote.setTitle(note.getTitle());
+                    existingNote.setBody(note.getBody());
+                    existingNote.setUpdatedOn(LocalDateTime.now());
+                    return ResponseEntity.ok(noteRepository.save(existingNote));
+                })
+                .orElse(ResponseEntity.notFound().build());
     }
 
-    @DeleteMapping(value = "/note/{id}")
-    public void deleteNote(@PathVariable long id) {
-        noteRepository.deleteById(id);
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> deleteNote(@PathVariable long id) {
+        if (noteRepository.existsById(id)) {
+            noteRepository.deleteById(id);
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }
