@@ -1,5 +1,6 @@
 package com.kyriakospatsias;
 
+import com.kyriakospatsias.model.Note;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -58,7 +59,7 @@ public class NoteController {
         return noteRepository.findById(id)
                 .map(existingNote -> {
                     existingNote.setTitle(note.getTitle());
-                    existingNote.setBody(note.getBody());
+                    existingNote.setContent(note.getContent());
                     existingNote.setUpdatedOn(LocalDateTime.now());
                     return ResponseEntity.ok(noteRepository.save(existingNote));
                 })

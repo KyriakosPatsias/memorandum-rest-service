@@ -1,5 +1,6 @@
-package com.kyriakospatsias;
+package com.kyriakospatsias.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -11,9 +12,12 @@ public class Note {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long noteId;
+    private long id;
     private String title;
-    private String body;
+    private String content;
+    private String category;
+    @JsonProperty("isFavorite")
+    private boolean isFavorite;
     private LocalDateTime createdOn;
     private LocalDateTime updatedOn;
 
@@ -21,19 +25,19 @@ public class Note {
         // used by Spring Data
     }
 
-    public Note(String title, String body, LocalDateTime createdOn, LocalDateTime updatedOn) {
+    public Note(String title, String content, LocalDateTime createdOn, LocalDateTime updatedOn) {
         this.title = title;
-        this.body = body;
+        this.content = content;
         this.createdOn = createdOn;
         this.updatedOn = updatedOn;
     }
 
-    public long getNoteId() {
-        return noteId;
+    public long getId() {
+        return id;
     }
 
-    public void setNoteId(long noteId) {
-        this.noteId = noteId;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -44,12 +48,12 @@ public class Note {
         this.title = title;
     }
 
-    public String getBody() {
-        return body;
+    public String getContent() {
+        return content;
     }
 
-    public void setBody(String body) {
-        this.body = body;
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public LocalDateTime getCreatedOn() {
@@ -68,12 +72,30 @@ public class Note {
         this.updatedOn = updatedOn;
     }
 
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public boolean isFavorite() {
+        return isFavorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        isFavorite = favorite;
+    }
+
     @Override
     public String toString() {
         return "Note{" +
-                "id=" + noteId +
+                "id=" + id +
                 ", title='" + title + '\'' +
-                ", body='" + body + '\'' +
+                ", body='" + content + '\'' +
+                ", category='" + category + '\'' +
+                ", isFavorite=" + isFavorite +
                 ", createdOn=" + createdOn +
                 ", updatedOn=" + updatedOn +
                 '}';
