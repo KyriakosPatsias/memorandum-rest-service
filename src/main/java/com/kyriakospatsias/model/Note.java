@@ -2,8 +2,6 @@ package com.kyriakospatsias.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import java.time.LocalDateTime;
 
@@ -11,7 +9,7 @@ import java.time.LocalDateTime;
 public class Note {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+   // @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String title;
     private String content;
@@ -84,8 +82,8 @@ public class Note {
         return isFavorite;
     }
 
-    public void setFavorite(boolean favorite) {
-        isFavorite = favorite;
+    public void setFavorite(boolean isFavorite) {
+        this.isFavorite = isFavorite;
     }
 
     @Override

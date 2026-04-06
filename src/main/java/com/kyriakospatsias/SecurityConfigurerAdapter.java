@@ -27,6 +27,9 @@ public class SecurityConfigurerAdapter {
                 .authorizeHttpRequests(authorize -> authorize.anyRequest().authenticated())
                 .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()));
 
+                // To disable security: comment out the above 2 lines, and comment in the line below:
+                //.authorizeHttpRequests(authorize -> authorize.anyRequest().permitAll());
+
         return http.build();
     }
 

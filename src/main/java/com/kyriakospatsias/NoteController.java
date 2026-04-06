@@ -58,8 +58,16 @@ public class NoteController {
     public ResponseEntity<Note> updateNote(@PathVariable long id, @RequestBody Note note) {
         return noteRepository.findById(id)
                 .map(existingNote -> {
-                    existingNote.setTitle(note.getTitle());
-                    existingNote.setContent(note.getContent());
+                    if (note.getTitle() != null && !note.getTitle().isEmpty()) {
+                        existingNote.setTitle(note.getTitle());
+                    }
+                    if (note.getContent() != null && !note.getContent().isEmpty()) {
+                        existingNote.setContent(note.getContent());
+                    }
+                    if (note.getCategory() != null && !note.getCategory().isEmpty()) {
+                        existingNote.setCategory(note.getCategory());
+                    }
+                    existingNote.setFavorite(note.isFavorite());
                     existingNote.setUpdatedOn(LocalDateTime.now());
                     return ResponseEntity.ok(noteRepository.save(existingNote));
                 })
