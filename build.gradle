@@ -10,7 +10,7 @@ apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
 group='com.kyriakospatsias'
-version='1.3-SNAPSHOT'
+version='1.4-SNAPSHOT'
 
 java {
     sourceCompatibility = JavaVersion.VERSION_21

@@ -50,7 +50,7 @@ public class ApplicationTests {
 
     @Test
     void shouldReturnANote() {
-        ResponseEntity<String> response = restTemplate.getForEntity("/note/1", String.class);
+        ResponseEntity<String> response = restTemplate.getForEntity("/api/v1/note/1", String.class);
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
 
         DocumentContext documentContext = JsonPath.parse(response.getBody());
@@ -60,7 +60,7 @@ public class ApplicationTests {
 
     @Test
     void shouldNotReturnACashCardWithAnUnknownId() {
-        ResponseEntity<String> response = restTemplate.getForEntity("/note/1000", String.class);
+        ResponseEntity<String> response = restTemplate.getForEntity("/api/v1/note/1000", String.class);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
         assertThat(response.getBody()).isBlank();
