@@ -47,7 +47,7 @@ public class NoteController {
     }
 
     @PostMapping
-    public ResponseEntity<Note> addNote(@RequestBody Note note) {
+    public ResponseEntity<Note> createNote(@RequestBody Note note) {
         note.setCreatedOn(LocalDateTime.now());
         note.setUpdatedOn(LocalDateTime.now());
         Note savedNote = noteRepository.save(note);
