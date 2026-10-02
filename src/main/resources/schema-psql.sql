@@ -16,16 +16,16 @@ CREATE TABLE IF NOT EXISTS memorandum.categories  (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     name VARCHAR(50) NULL,
     color VARCHAR(20) NULL,
-    user_id INTEGER REFERENCES users(id)
+    user_id INTEGER REFERENCES memorandum.users(id)
 );
 
 CREATE TABLE IF NOT EXISTS memorandum.notes  (
   id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   title VARCHAR(250) NULL,
   content VARCHAR NULL,
-  category INT REFERENCES categories(id),
+  category INT REFERENCES memorandum.categories(id),
   is_favorite BOOLEAN DEFAULT FALSE,
-  user_id INT REFERENCES users(id) NOT NULL,
+  user_id INT REFERENCES memorandum.users(id) NOT NULL,
   status VARCHAR(20) NOT NULL,
   created_on TIMESTAMP,
   updated_on TIMESTAMP

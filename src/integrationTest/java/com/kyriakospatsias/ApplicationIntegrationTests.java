@@ -54,7 +54,7 @@ public class ApplicationIntegrationTests {
 
         DocumentContext documentContext = JsonPath.parse(response.getBody());
         Number id = documentContext.read("$.title");
-       // assertThat(id).isEqualTo(99);
+        assertThat(id).isEqualTo(1);
     }
 
     @Test

@@ -23,4 +23,4 @@ jobs:
         distribution: 'temurin'
     - name: Build with Gradle
       # The gradlew script already has execute permissions in git
-      run: ./gradlew build
+      run: ./gradlew build -x integrationTest

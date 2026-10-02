@@ -2,7 +2,7 @@ WITH new_users AS (
     INSERT
     INTO memorandum.users (username, first_name, last_name, timezone, status, created_on, updated_on)
     VALUES
-        ('kyriakos', 'Kyriakos', 'Patsias', 'PST', 'active', now(), now())
+        ('geoffrey', 'Geoffrey', 'Giraffe', 'PST', 'active', now(), now())
     RETURNING id
 )
 INSERT INTO memorandum.notes (title, content, is_favorite, user_id, status, created_on, updated_on)
