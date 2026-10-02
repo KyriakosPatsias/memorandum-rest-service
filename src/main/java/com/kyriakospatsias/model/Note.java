@@ -3,9 +3,12 @@ package com.kyriakospatsias.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "notes", schema = "memorandum") 
 public class Note {
 
     @Id

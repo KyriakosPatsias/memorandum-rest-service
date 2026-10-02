@@ -13,7 +13,7 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/memorandum
     username: postgres
-    password: memorandumpw
+    password: memorandum
   jpa:
     hibernate:
       ddl-auto: update
