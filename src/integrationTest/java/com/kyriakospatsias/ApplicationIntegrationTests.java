@@ -4,7 +4,6 @@ import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.resttestclient.autoconfigure.AutoConfigureTestRestTemplate;
@@ -20,11 +19,11 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureTestRestTemplate
 @ActiveProfiles(value = "test")
-public class ApplicationTests {
+public class ApplicationIntegrationTests {
 
     static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>(
-            "postgres:15-alpine"
-    );
+            "postgres:18.6-trixie")
+            .withInitScripts("schema-psql.sql", "init-test-data.sql");
 
     @Autowired
     TestRestTemplate restTemplate;
@@ -59,7 +58,7 @@ public class ApplicationTests {
     }
 
     @Test
-    void shouldNotReturnACashCardWithAnUnknownId() {
+    void shouldNotReturnANoteWithAnUnknownId() {
         ResponseEntity<String> response = restTemplate.getForEntity("/api/v1/note/1000", String.class);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);

@@ -2,6 +2,7 @@ plugins {
     id 'org.springframework.boot' version '4.1.0'
     id 'io.spring.dependency-management' version '1.1.7'
     id 'java'
+    id 'jvm-test-suite'
 }
 
 apply plugin: 'java'
@@ -26,24 +27,74 @@ repositories {
     }
 }*/
 
+// Spring Boot 4.1's own dependency management recommends Testcontainers 2.0.5, which wins
+// the version conflict over the 1.21.x BOM below since Gradle picks the highest requested
+// version. 2.0.5's ScriptUtils references a shaded commons-io class
+// (org.testcontainers.shaded.org.apache.commons.io.IOUtils) that isn't actually packaged in
+// that release, breaking withInitScripts(...) with a NoClassDefFoundError. Pin back to the
+// last known-good 1.21.x line until that's fixed upstream.
+dependencyManagement {
+    dependencies {
+        dependency 'org.testcontainers:testcontainers:1.21.4'
+        dependency 'org.testcontainers:postgresql:1.21.4'
+    }
+}
+
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-webmvc")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.boot:spring-boot-starter-security-oauth2-resource-server")
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("org.springframework.boot:spring-boot-resttestclient")
-    testImplementation 'com.h2database:h2'
-    //implementation 'org.springframework.data:spring-data-jdbc'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.postgresql:postgresql'
-    implementation 'org.testcontainers:postgresql:1.21.3'
     implementation 'org.springframework.boot:spring-boot-starter-security'
+
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("org.springframework.boot:spring-boot-resttestclient")
+    testImplementation 'commons-io:commons-io:2.16.1'
     testImplementation 'org.springframework.security:spring-security-test'
+    testImplementation 'org.testcontainers:testcontainers'
 }
 
-test {
-    useJUnitPlatform()
+testing {
+    suites {
+        test {
+            useJUnitJupiter()
+        }
+
+        integrationTest(JvmTestSuite) {
+            useJUnitJupiter()
+
+            dependencies {
+                implementation project()
+                implementation 'org.springframework.boot:spring-boot-starter-test'
+                implementation 'org.springframework.boot:spring-boot-resttestclient'
+                implementation 'org.springframework.security:spring-security-test'
+                implementation 'commons-io:commons-io:2.16.1'
+                implementation 'org.testcontainers:postgresql'
+            }
+
+            sources {
+                java {
+                    srcDirs = ['src/integrationTest/java']
+                }
+            }
+
+            targets {
+                all {
+                    testTask.configure {
+                        shouldRunAfter(test)
+                    }
+                }
+            }
+        }
+    }
 }
+
+tasks.named('check') {
+    dependsOn(testing.suites.integrationTest)
+}
+
+
 
 // This section causes useful test output to go to the terminal.
 test.testLogging {
