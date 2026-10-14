@@ -53,6 +53,12 @@ to start** without network access to it (or without the value overridden).
 ./gradlew build
 ```
 
+Without integration tests:
+
+```bash
+./gradlew build -x integrationTest
+```
+
 ## Run
 
 1. Start a local Postgres matching the `dev` profile:

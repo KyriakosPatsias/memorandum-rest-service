@@ -15,6 +15,7 @@ public class Category {
     private long id;
     private String name;
     private String color;
+    private long userId;
 
     public Category(){
         // used by Spring Data
@@ -41,12 +42,21 @@ public class Category {
         this.color = color;
     }
 
+    public long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(long userId) {
+        this.userId = userId;
+    }
+
     @Override
     public String toString() {
         return "Category{" +
                 "categoryId=" + id +
                 ", name='" + name + '\'' +
                 ", color='" + color + '\'' +
+                ", user ID='" + userId + '\'' +
                 '}';
     }
 }
