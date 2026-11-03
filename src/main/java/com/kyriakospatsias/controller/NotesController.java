@@ -1,6 +1,7 @@
-package com.kyriakospatsias;
+package com.kyriakospatsias.controller;
 
 import com.kyriakospatsias.model.Note;
+import com.kyriakospatsias.repository.NotesRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,6 +43,7 @@ public class NotesController {
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<Note> getNoteById(@PathVariable long id) {
+        logger.debug("Getting note by id {}", id);
         return notesRepository.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
@@ -48,14 +51,16 @@ public class NotesController {
 
     @PostMapping
     public ResponseEntity<Note> createNote(@RequestBody Note note) {
-        note.setCreatedOn(LocalDateTime.now());
-        note.setUpdatedOn(LocalDateTime.now());
+        logger.debug("Creating note {}", note);
+        note.setCreatedOn(LocalDateTime.now(ZoneId.of("UTC")));
+        note.setUpdatedOn(LocalDateTime.now(ZoneId.of("UTC")));
         Note savedNote = notesRepository.save(note);
         return new ResponseEntity<>(savedNote, HttpStatus.CREATED);
     }
 
     @PutMapping(value = "/{id}")
     public ResponseEntity<Note> updateNote(@PathVariable long id, @RequestBody Note note) {
+        logger.debug("Updating note {}", note);
         return notesRepository.findById(id)
                 .map(existingNote -> {
                     if (note.getTitle() != null && !note.getTitle().isEmpty()) {
@@ -68,7 +73,7 @@ public class NotesController {
                         existingNote.setCategory(note.getCategory());
                     }
                     existingNote.setFavorite(note.isFavorite());
-                    existingNote.setUpdatedOn(LocalDateTime.now());
+                    existingNote.setUpdatedOn(LocalDateTime.now(ZoneId.of("UTC")));
                     return ResponseEntity.ok(notesRepository.save(existingNote));
                 })
                 .orElse(ResponseEntity.notFound().build());
@@ -76,6 +81,7 @@ public class NotesController {
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> deleteNote(@PathVariable long id) {
+        logger.debug("Deleting note {}", id);
         if (notesRepository.existsById(id)) {
             notesRepository.deleteById(id);
             return ResponseEntity.noContent().build();

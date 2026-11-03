@@ -1,6 +1,8 @@
 package com.kyriakospatsias;
 
+import com.kyriakospatsias.controller.NotesController;
 import com.kyriakospatsias.model.Note;
+import com.kyriakospatsias.repository.NotesRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

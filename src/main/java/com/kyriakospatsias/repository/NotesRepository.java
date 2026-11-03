@@ -1,4 +1,4 @@
-package com.kyriakospatsias;
+package com.kyriakospatsias.repository;
 
 import com.kyriakospatsias.model.Note;
 import org.springframework.data.repository.CrudRepository;
