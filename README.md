@@ -41,7 +41,7 @@ There is no default `application.yml` — you must activate a profile:
 
 - `application-dev.yml`: connects to `localhost:5432/memorandum` (user `postgres`,
   password `mysecretpassword`), `ddl-auto: update`.
-- `application-prod.yml`: expects the datasource to be provided externally.
+- `application.yml`: expects the datasource to be provided externally.
 
 Both profiles point `spring.security.oauth2.resourceserver.jwt.issuer-uri` at a Cognito
 user pool. The `JwtDecoder` bean resolves this issuer at startup, so the app **will fail
@@ -51,6 +51,12 @@ to start** without network access to it (or without the value overridden).
 
 ```bash
 ./gradlew build
+```
+
+Without integration tests:
+
+```bash
+./gradlew build -x integrationTest
 ```
 
 ## Run

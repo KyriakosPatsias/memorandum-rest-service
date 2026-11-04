@@ -1,7 +1,0 @@
-CREATE TABLE IF NOT EXISTS note  (
-  id INT AUTO_INCREMENT  PRIMARY KEY,
-  title VARCHAR(250) NULL,
-  body VARCHAR NULL,
-  created_on TIMESTAMP,
-  updated_on TIMESTAMP
-);

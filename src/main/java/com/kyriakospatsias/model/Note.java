@@ -2,18 +2,23 @@ package com.kyriakospatsias.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "notes", schema = "memorandum") 
 public class Note {
 
     @Id
-   // @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String title;
     private String content;
-    private String category;
+    private Integer category;
     @JsonProperty("isFavorite")
     private boolean isFavorite;
     private LocalDateTime createdOn;
@@ -70,11 +75,11 @@ public class Note {
         this.updatedOn = updatedOn;
     }
 
-    public String getCategory() {
+    public Integer getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(Integer category) {
         this.category = category;
     }
 
