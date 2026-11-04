@@ -41,7 +41,7 @@ class NotesControllerTest {
         existingNote.setId(1L);
         existingNote.setTitle("Original title");
         existingNote.setContent("Original content");
-        existingNote.setCategory("Original category");
+        existingNote.setCategory(null);
         existingNote.setFavorite(false);
         existingNote.setCreatedOn(LocalDateTime.of(2026, 1, 1, 0, 0));
         existingNote.setUpdatedOn(LocalDateTime.of(2026, 1, 1, 0, 0));
@@ -113,7 +113,7 @@ class NotesControllerTest {
         Note update = new Note();
         update.setTitle("Updated title");
         update.setContent("Updated content");
-        update.setCategory("Updated category");
+        update.setCategory(null);
         update.setFavorite(true);
 
         ResponseEntity<Note> response = notesController.updateNote(1L, update);
@@ -122,7 +122,7 @@ class NotesControllerTest {
         Note saved = response.getBody();
         assertThat(saved.getTitle()).isEqualTo("Updated title");
         assertThat(saved.getContent()).isEqualTo("Updated content");
-        assertThat(saved.getCategory()).isEqualTo("Updated category");
+        assertThat(saved.getCategory()).isNull();
         assertThat(saved.isFavorite()).isTrue();
         assertThat(saved.getUpdatedOn()).isAfter(LocalDateTime.of(2026, 1, 1, 0, 0));
     }
@@ -135,7 +135,7 @@ class NotesControllerTest {
         Note update = new Note();
         update.setTitle("");
         update.setContent(null);
-        update.setCategory("");
+        update.setCategory(null);
         update.setFavorite(false);
 
         ResponseEntity<Note> response = notesController.updateNote(1L, update);
@@ -143,7 +143,7 @@ class NotesControllerTest {
         Note saved = response.getBody();
         assertThat(saved.getTitle()).isEqualTo("Original title");
         assertThat(saved.getContent()).isEqualTo("Original content");
-        assertThat(saved.getCategory()).isEqualTo("Original category");
+        assertThat(saved.getCategory()).isNull();
     }
 
     @Test

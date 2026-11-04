@@ -18,7 +18,7 @@ public class Note {
     private long id;
     private String title;
     private String content;
-    private String category;
+    private Integer category;
     @JsonProperty("isFavorite")
     private boolean isFavorite;
     private LocalDateTime createdOn;
@@ -75,11 +75,11 @@ public class Note {
         this.updatedOn = updatedOn;
     }
 
-    public String getCategory() {
+    public Integer getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(Integer category) {
         this.category = category;
     }
 

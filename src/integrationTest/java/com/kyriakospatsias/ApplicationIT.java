@@ -83,4 +83,19 @@ public class ApplicationIT {
         assertThat(response.getBody()).isBlank();
     }
 
+    @Test
+    void shouldReturnAUser() {
+        ResponseEntity<String> response = restTemplate.getForEntity("/api/v1/users/1", String.class);
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        DocumentContext documentContext = JsonPath.parse(response.getBody());
+        String userName = documentContext.read("$.username");
+        assertThat(userName).isEqualTo("geoffrey");
+    }
+
+    @Test
+    void shouldNotReturnAUserWithAnUnknownId() {
+        ResponseEntity<String> response = restTemplate.getForEntity("/api/v1/users/1000", String.class);
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+        assertThat(response.getBody()).isBlank();
+    }
 }

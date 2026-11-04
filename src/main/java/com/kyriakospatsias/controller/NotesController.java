@@ -69,7 +69,7 @@ public class NotesController {
                     if (note.getContent() != null && !note.getContent().isEmpty()) {
                         existingNote.setContent(note.getContent());
                     }
-                    if (note.getCategory() != null && !note.getCategory().isEmpty()) {
+                    if (note.getCategory() != null) {
                         existingNote.setCategory(note.getCategory());
                     }
                     existingNote.setFavorite(note.isFavorite());
