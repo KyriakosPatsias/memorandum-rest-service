@@ -41,6 +41,7 @@ env:
 
 permissions:
   contents: read
+  id-token: write
 
 jobs:
   deploy:
