@@ -17,6 +17,9 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
 
 # CLI option -Pargs=--logging.level.org.springframework=INFO,--logging.level.com.kyriakospatsias=DEBUG
 logging:
