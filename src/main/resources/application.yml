@@ -12,14 +12,11 @@ spring:
     allow-bean-definition-overriding: true
   datasource:
     url: jdbc:postgresql://memorandum-1.cluster-c94kmg840aep.us-west-2.rds.amazonaws.com:5432/memorandum?sslmode=require
-    username: memorandum-api
+    username: memorandum_api
     password: ${DB_MEMORANDUM_API_PW}
   jpa:
     hibernate:
       ddl-auto: update
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
 
 # CLI option -Pargs=--logging.level.org.springframework=INFO,--logging.level.com.kyriakospatsias=DEBUG
 logging:
