@@ -35,7 +35,7 @@ env:
   ECR_REPOSITORY: memorandum/api           # set this to your Amazon ECR repository name
   ECS_SERVICE: memorandum-api-service-service-3fevx1x7  # set this to your Amazon ECS service name
   ECS_CLUSTER: memorandum                 # set this to your Amazon ECS cluster name
-  ECS_TASK_DEFINITION: .aws/memorandum-api-service-revision1.json  # set this to the path to your Amazon ECS task definition
+  ECS_TASK_DEFINITION: .aws/memorandum-api-service-revision.json  # set this to the path to your Amazon ECS task definition
   CONTAINER_NAME: memorandum-api           # set this to the name of the container in the
                                                # containerDefinitions section of your task definition
 
