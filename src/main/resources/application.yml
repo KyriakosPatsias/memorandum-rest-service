@@ -13,7 +13,7 @@ spring:
   datasource:
     url: jdbc:postgresql://memorandum-1.cluster-c94kmg840aep.us-west-2.rds.amazonaws.com:5432/memorandum?sslmode=require
     username: memorandum_api
-    password: ${DB_MEMORANDUM_API_PW}
+    password: ${DB_MEMORANDUM_API_PW.password}
   jpa:
     hibernate:
       ddl-auto: update
