@@ -15,8 +15,6 @@ spring:
     username: memorandum_api
     password: ${DB_MEMORANDUM_API_PW}
   jpa:
-    hibernate:
-      ddl-auto: update
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
