@@ -9,4 +9,5 @@ FROM azul-zulu:21-jre-alpine
 EXPOSE 8080
 RUN mkdir /app
 COPY --from=build /home/gradle/src/build/libs/*.jar /app/application.jar
-ENTRYPOINT ["java", "-jar", "/app/application.jar"]
+COPY container-entrypoint.sh /app/
+ENTRYPOINT ["/app/container-entrypoint.sh"]
